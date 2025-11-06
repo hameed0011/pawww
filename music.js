@@ -1,4 +1,4 @@
-let audio = new Audio("song.mp3");
+let audio = new Audio("paw.mp3");
 audio.loop = true;
 
 function playMusic() {
