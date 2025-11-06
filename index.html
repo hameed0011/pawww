@@ -9,7 +9,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: #f2e9d8; 
+      background: #f3ebd2; /* warm old paper tone */
       font-family: "Georgia", serif;
       overflow-x: hidden;
     }
@@ -18,7 +18,6 @@
     #tapScreen {
       position: fixed;
       top: 0;
-      left: 0;
       width: 100vw;
       height: 100vh;
       background: rgba(0,0,0,0.45);
@@ -28,46 +27,50 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-
       text-align: center;
-      color: white;
-      padding: 20px;
 
-      /* Fluid scaling */
+      color: white;
       font-size: clamp(20px, 6vw, 32px);
+      padding: 20px;
       z-index: 20;
     }
 
     #preview {
       opacity: 0.7;
       margin-top: 10px;
-      font-size: clamp(14px, 4vw, 24px);
+      font-size: clamp(14px, 4vw, 22px);
     }
 
-    /* LETTER / PAPER */
+    /* REAL LETTER STYLE */
     #letter {
-      width: min(90%, 650px);
-      margin: 50px auto;
-      padding: clamp(16px, 5vw, 34px);
+      width: min(90%, 680px);
+      margin: 60px auto;
+      padding: clamp(18px, 5vw, 36px);
 
-      background: #fffdf6;
-      border: 2px solid #d7c9a7;
-      border-radius: 8px;
-      box-shadow: 0 0 18px rgba(0,0,0,0.2);
+      background: url('https://i.imgur.com/84Zzjv3.jpg');
+      background-size: cover;
+      background-position: center;
+
+      border: 1px solid #ccbfa3;
+      border-radius: 6px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+
+      font-size: clamp(15px, 4.4vw, 22px);
+      line-height: 1.7;
+      color: #3b2f2f;
 
       display: none;
 
-      /* fluid text size */
-      font-size: clamp(15px, 4.3vw, 22px);
-      line-height: 1.65;
-      color: #3b2f2f;
+      /* animation default state */
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.2s ease, transform 1.2s ease;
     }
 
-    /* Extra spacing on large screens */
-    @media (min-width: 900px) {
-      #letter {
-        margin-top: 80px;
-      }
+    /* When letter is shown */
+    #letter.show {
+      opacity: 1;
+      transform: translateY(0px);
     }
 
   </style>
@@ -84,14 +87,16 @@
   <div id="letter">
 Dear you,
 
-I just want to say I’m really sorry.
-I know I made you feel bad, and that’s the last thing
-I ever want to do. You matter to me more than I show
-sometimes, but I’m trying to be better — for you,
-for us.
+I just want to say I’m really sorry — truly.
+I know I made you feel hurt, and that’s something
+I never want to do. You mean more to me than I
+manage to express sometimes.
 
-If you give me a chance,
-I’ll make it right.
+I’m learning, I’m growing, and I want to do better.
+For you. For us.
+
+Thank you for being patient with me.
+And once again…
 
 I’m sorry.
   </div>
@@ -106,6 +111,12 @@ I’m sorry.
       setTimeout(() => tapScreen.style.display = "none", 300);
 
       letter.style.display = "block";
+
+      // Give time for display to apply before animating
+      setTimeout(() => {
+        letter.classList.add("show");
+      }, 30);
+
       playMusic();
     });
   </script>
