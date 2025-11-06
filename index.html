@@ -8,96 +8,105 @@
   <style>
     body {
       margin: 0;
-      overflow: hidden;
+      padding: 0;
+      background: #f2e9d8; 
       font-family: "Georgia", serif;
-      background: #f3e9d2;
+      overflow-x: hidden;
     }
 
-    /* old paper style */
-    .paper {
-      width: 90%;
-      max-width: 600px;
-      margin: 60px auto;
-      padding: 30px;
-      background: #fffaf0;
-      border: 2px solid #d1c7a1;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
-      border-radius: 6px;
-      line-height: 1.6;
-      display: none;
-      white-space: pre-line;
-    }
-
-    /* Tap to read screen */
+    /* TAP SCREEN */
     #tapScreen {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
-      height: 100vh;
       width: 100vw;
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(3px);
+      height: 100vh;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(4px);
+
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
+
+      text-align: center;
       color: white;
-      font-size: 24px;
-      z-index: 10;
+      padding: 20px;
+
+      /* Fluid scaling */
+      font-size: clamp(20px, 6vw, 32px);
+      z-index: 20;
     }
+
     #preview {
-      font-size: 20px;
       opacity: 0.7;
       margin-top: 10px;
+      font-size: clamp(14px, 4vw, 24px);
     }
 
-    /* Falling emojis */
-    .emoji {
-      position: fixed;
-      top: -50px;
-      font-size: 30px;
-      animation: fall linear infinite;
+    /* LETTER / PAPER */
+    #letter {
+      width: min(90%, 650px);
+      margin: 50px auto;
+      padding: clamp(16px, 5vw, 34px);
+
+      background: #fffdf6;
+      border: 2px solid #d7c9a7;
+      border-radius: 8px;
+      box-shadow: 0 0 18px rgba(0,0,0,0.2);
+
+      display: none;
+
+      /* fluid text size */
+      font-size: clamp(15px, 4.3vw, 22px);
+      line-height: 1.65;
+      color: #3b2f2f;
     }
 
-    @keyframes fall {
-      to {
-        transform: translateY(120vh);
+    /* Extra spacing on large screens */
+    @media (min-width: 900px) {
+      #letter {
+        margin-top: 80px;
       }
     }
+
   </style>
 </head>
 <body>
 
-  <!-- Tapping Screen -->
+  <!-- TAP ANYWHERE -->
   <div id="tapScreen">
-    TAP ANYWHERE TO READ 💌
-    <div id="preview">"i’m sorry... can we talk?"</div>
+    TAP ANYWHERE TO READ 💬
+    <div id="preview">"I really need to tell you something..."</div>
   </div>
 
-  <!-- Actual Letter -->
-  <div class="paper" id="letter">
+  <!-- LETTER -->
+  <div id="letter">
 Dear you,
 
-I know I messed up… and I’m really, truly sorry.
-I didn’t mean to hurt you, and I hope this little letter
-brings even a tiny smile back to your face.
+I just want to say I’m really sorry.
+I know I made you feel bad, and that’s the last thing
+I ever want to do. You matter to me more than I show
+sometimes, but I’m trying to be better — for you,
+for us.
 
-You matter to me more than I show sometimes.
-I’m working on being better — for you, for us.
+If you give me a chance,
+I’ll make it right.
 
-I’m sorry. 💛
+I’m sorry.
   </div>
 
-  <script src="emoji.js"></script>
   <script src="music.js"></script>
   <script>
     const tapScreen = document.getElementById("tapScreen");
     const letter = document.getElementById("letter");
 
     tapScreen.addEventListener("click", () => {
-      tapScreen.style.display = "none";
+      tapScreen.style.opacity = "0";
+      setTimeout(() => tapScreen.style.display = "none", 300);
+
       letter.style.display = "block";
-      playMusic(); // from music.js
+      playMusic();
     });
   </script>
 
