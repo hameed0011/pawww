@@ -9,7 +9,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: #f3ebd2; /* warm old paper tone */
+      background: #f3ebd2;
       font-family: "Georgia", serif;
       overflow-x: hidden;
     }
@@ -18,20 +18,19 @@
     #tapScreen {
       position: fixed;
       top: 0;
+      left: 0;
       width: 100vw;
       height: 100vh;
       background: rgba(0,0,0,0.45);
       backdrop-filter: blur(4px);
-
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-
       color: white;
-      font-size: clamp(20px, 6vw, 32px);
       padding: 20px;
+      font-size: clamp(20px, 6vw, 32px);
       z-index: 20;
     }
 
@@ -41,38 +40,38 @@
       font-size: clamp(14px, 4vw, 22px);
     }
 
-    /* REAL LETTER STYLE */
+    /* PAPER */
     #letter {
       width: min(90%, 680px);
       margin: 60px auto;
       padding: clamp(18px, 5vw, 36px);
-
-      background: url('https://i.imgur.com/84Zzjv3.jpg');
-      background-size: cover;
-      background-position: center;
-
+      background: #fdf7e2;
+      background-image:
+        radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px),
+        linear-gradient(#f5e8c7, #f7ecd4);
+      background-size: 5px 5px, 100% 100%;
       border: 1px solid #ccbfa3;
       border-radius: 6px;
       box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-
       font-size: clamp(15px, 4.4vw, 22px);
-      line-height: 1.7;
       color: #3b2f2f;
-
       display: none;
-
-      /* animation default state */
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 1.2s ease, transform 1.2s ease;
     }
 
-    /* When letter is shown */
-    #letter.show {
-      opacity: 1;
-      transform: translateY(0px);
+    /* keeps formatting EXACTLY as typed */
+    #letter pre {
+      white-space: pre-wrap;
+      line-height: 1.7;
+      margin: 0;
     }
 
+    #letter.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
@@ -85,20 +84,20 @@
 
   <!-- LETTER -->
   <div id="letter">
+    <pre>
 Dear you,
 
 I just want to say I’m really sorry — truly.
 I know I made you feel hurt, and that’s something
-I never want to do. You mean more to me than I
-manage to express sometimes.
+I never want to do.
 
-I’m learning, I’m growing, and I want to do better.
-For you. For us.
+You mean more to me than I manage to express sometimes,
+and I’m trying to be better — for you, for us.
 
 Thank you for being patient with me.
-And once again…
 
 I’m sorry.
+    </pre>
   </div>
 
   <script src="music.js"></script>
@@ -112,7 +111,6 @@ I’m sorry.
 
       letter.style.display = "block";
 
-      // Give time for display to apply before animating
       setTimeout(() => {
         letter.classList.add("show");
       }, 30);
