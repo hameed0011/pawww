@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I'm Sorry</title>
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: "Georgia", serif;
+      background: #f3e9d2;
+    }
+
+    /* old paper style */
+    .paper {
+      width: 90%;
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 30px;
+      background: #fffaf0;
+      border: 2px solid #d1c7a1;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      border-radius: 6px;
+      line-height: 1.6;
+      display: none;
+      white-space: pre-line;
+    }
+
+    /* Tap to read screen */
+    #tapScreen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(3px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      font-size: 24px;
+      z-index: 10;
+    }
+    #preview {
+      font-size: 20px;
+      opacity: 0.7;
+      margin-top: 10px;
+    }
+
+    /* Falling emojis */
+    .emoji {
+      position: fixed;
+      top: -50px;
+      font-size: 30px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(120vh);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Tapping Screen -->
+  <div id="tapScreen">
+    TAP ANYWHERE TO READ 💌
+    <div id="preview">"i’m sorry... can we talk?"</div>
+  </div>
+
+  <!-- Actual Letter -->
+  <div class="paper" id="letter">
+Dear you,
+
+I know I messed up… and I’m really, truly sorry.
+I didn’t mean to hurt you, and I hope this little letter
+brings even a tiny smile back to your face.
+
+You matter to me more than I show sometimes.
+I’m working on being better — for you, for us.
+
+I’m sorry. 💛
+  </div>
+
+  <script src="emoji.js"></script>
+  <script src="music.js"></script>
+  <script>
+    const tapScreen = document.getElementById("tapScreen");
+    const letter = document.getElementById("letter");
+
+    tapScreen.addEventListener("click", () => {
+      tapScreen.style.display = "none";
+      letter.style.display = "block";
+      playMusic(); // from music.js
+    });
+  </script>
+
+</body>
+</html>
